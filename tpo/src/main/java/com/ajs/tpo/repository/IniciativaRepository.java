@@ -5,7 +5,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import tpo.model.Iniciativa;
+
+import com.ajs.tpo.model.Iniciativa;
+
 
 // Almacena en memoria las instancias de Iniciativa, indexadas por id unico. No contiene logica de negocio
 public class IniciativaRepository {

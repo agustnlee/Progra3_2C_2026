@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import tpo.model.Publicacion;
+import com.ajs.tpo.model.Publicacion;
 
 // Almacena en memoria las instancias de Publicacion, indexadas por id unico. No coentiene logica de negocio
 

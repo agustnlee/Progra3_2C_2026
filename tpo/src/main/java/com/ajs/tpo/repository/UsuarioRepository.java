@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import tpo.model.Usuario;
+import com.ajs.tpo.model.Usuario;
 
 // Almacena en memoria las instancias de Usuario, indexadas por id unico.vNo contiene logica de negocio
 

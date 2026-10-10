@@ -7,8 +7,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import tpo.model.Conexion;
-import tpo.model.Usuario;
 
 // Grafo dirigido y ponderado de la red de difusion. LISTA DE ADYACENCIA
 // Cada Usuario es un vertice; cada Conexion es una arista origen -> destino. A lo sumo 1 conexion entre par origen destino
