@@ -44,7 +44,7 @@ public class UsuarioRepository {
         return usuarios.remove(id) != null;
     }
 
-    // Copia de la lista, en orden de alta.
+    // Copia de la lista, en orden de alta
     public List<Usuario> listar() {
         return new ArrayList<>(usuarios.values());
     }
