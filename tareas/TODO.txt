@@ -1,0 +1,1 @@
+quedan pasar las actividades realizadas en el google docs y localmente al github
