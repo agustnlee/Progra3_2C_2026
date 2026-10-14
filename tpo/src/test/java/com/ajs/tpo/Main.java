@@ -9,6 +9,7 @@ public class Main {
 
         TestMergeSort.TestMergeSortPorFecha();
         TestMergeSort.TestMergeSortPorRelevancia();
+        TestMergeSort.TestMergeSortConEnumErroneo();
     
     }
 

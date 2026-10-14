@@ -8,6 +8,7 @@ public class MergeSortPublicaciones {
     public static long comparaciones = 0;
     public static long movimientos = 0;
 
+
     public static void reiniciarContadores() {
         comparaciones = 0;
         movimientos = 0;
@@ -57,7 +58,7 @@ public class MergeSortPublicaciones {
 
 
 
-    public static void mergeSort(Publicacion[] arr, Enum tipo) {
+    public static void mergeSort(Publicacion[] arr, CriterioOrdenamientoPublicaciones tipo) {
         if (arr.length < 2) {
             return;
         }
@@ -65,7 +66,7 @@ public class MergeSortPublicaciones {
         mergeSort(arr, auxiliar, 0, arr.length - 1, tipo);
     }
 
-    private static void mergeSort(Publicacion[] arr, Publicacion[] auxiliar, int izq, int der, Enum tipo) {
+    private static void mergeSort(Publicacion[] arr, Publicacion[] auxiliar, int izq, int der, CriterioOrdenamientoPublicaciones tipo) {
         if (izq >= der) {
             return;
         }
@@ -77,7 +78,7 @@ public class MergeSortPublicaciones {
         mezclar(arr, auxiliar, izq, medio, der, tipo);
     }
 
-     private static void mezclar(Publicacion[] arr, Publicacion[] auxiliar, int izq, int medio, int der, Enum tipo) {
+     private static void mezclar(Publicacion[] arr, Publicacion[] auxiliar, int izq, int medio, int der, CriterioOrdenamientoPublicaciones tipo) {
 
         // Copiar rango [izq, der] al arreglo auxiliar
         for (int k = izq; k <= der; k++) {
@@ -91,7 +92,10 @@ public class MergeSortPublicaciones {
 
         while (i <= medio && j <= der) {
 
+            
+
             if (tipo.equals(CriterioOrdenamientoPublicaciones.POR_RELEVANCIA)){
+               
                 
                 if (CompararRelevancia(auxiliar[i], auxiliar[j]) <= 0) {
                 arr[k] = auxiliar[i];
@@ -118,6 +122,12 @@ public class MergeSortPublicaciones {
             k++;
 
             }
+            
+        else {
+           break;
+        }
+
+
         }
     
         // copiar sobrante izq
