@@ -1,6 +1,7 @@
 package com.ajs.tpo.algorithm;
 
 import com.ajs.tpo.model.Publicacion;
+import com.ajs.tpo.enums.*;
 
 public class MergeSortPublicaciones {
 
@@ -12,22 +13,51 @@ public class MergeSortPublicaciones {
         movimientos = 0;
 
     }
-// compara 2 productos por relevancia descendente y si son iguales se desempata por id ascendente
+// compara 2 publicaciones por relevancia descendente y si son iguales se desempata por id ascendente
 // negativo si p1 tiene que ir ANTES de p2, positivo si p1 DESPUES de p2, 0 si son iguales en relevancia
     private static int CompararRelevancia(Publicacion p1, Publicacion p2) {
         comparaciones++;
 
 
 
-        if (p1.getFechaHora() != p2.getFechaHora()) {
+        if (p1.getRelevancia()!=p2.getRelevancia()) {
             return Double.compare(p2.getRelevancia(), p1.getRelevancia()); // para orden descendente
         } else {
-            return Double.compare(p1.getId(), p2.getId()); // para orden ascendente
+            return CompararId(p1, p2); // para orden ascendente
         
         }
     }
 
-    public static void mergeSort(Publicacion[] arr, int tipo) {
+    private static int CompararId(Publicacion p1, Publicacion p2){
+        comparaciones++;
+
+        return Integer.compare(p1.getId(), p2.getId());
+    }
+
+    private static int CompararFecha(Publicacion p1, Publicacion p2){
+
+        comparaciones++;
+
+        if (!p1.getFechaHora().equals(p2.getFechaHora())){
+
+           if (p1.getFechaHora().isAfter(p2.getFechaHora())){
+            return -1;
+           }
+
+           else return 1;
+
+        }
+
+        else return CompararId(p1, p2);
+
+
+    }
+
+
+
+
+
+    public static void mergeSort(Publicacion[] arr, Enum tipo) {
         if (arr.length < 2) {
             return;
         }
@@ -35,7 +65,7 @@ public class MergeSortPublicaciones {
         mergeSort(arr, auxiliar, 0, arr.length - 1, tipo);
     }
 
-    private static void mergeSort(Publicacion[] arr, Publicacion[] auxiliar, int izq, int der, int tipo) {
+    private static void mergeSort(Publicacion[] arr, Publicacion[] auxiliar, int izq, int der, Enum tipo) {
         if (izq >= der) {
             return;
         }
@@ -47,7 +77,7 @@ public class MergeSortPublicaciones {
         mezclar(arr, auxiliar, izq, medio, der, tipo);
     }
 
-     private static void mezclar(Publicacion[] arr, Publicacion[] auxiliar, int izq, int medio, int der, int tipo) {
+     private static void mezclar(Publicacion[] arr, Publicacion[] auxiliar, int izq, int medio, int der, Enum tipo) {
 
         // Copiar rango [izq, der] al arreglo auxiliar
         for (int k = izq; k <= der; k++) {
@@ -61,7 +91,7 @@ public class MergeSortPublicaciones {
 
         while (i <= medio && j <= der) {
 
-            if (tipo ==0){
+            if (tipo.equals(CriterioOrdenamientoPublicaciones.POR_RELEVANCIA)){
                 
                 if (CompararRelevancia(auxiliar[i], auxiliar[j]) <= 0) {
                 arr[k] = auxiliar[i];
@@ -75,8 +105,8 @@ public class MergeSortPublicaciones {
             k++;
         }
 
-        else{
-            if(auxiliar[i].getFechaHora().isAfter(auxiliar[j].getFechaHora())){
+        else if(tipo.equals(CriterioOrdenamientoPublicaciones.POR_FECHA)){
+            if(CompararFecha(auxiliar[i], auxiliar[j]) <= 0){
                  arr[k] = auxiliar[i];
                 movimientos++;
                 i++;
@@ -90,9 +120,6 @@ public class MergeSortPublicaciones {
             }
         }
     
-    
-           
-
         // copiar sobrante izq
         while (i <= medio) {
             arr[k] = auxiliar[i];
