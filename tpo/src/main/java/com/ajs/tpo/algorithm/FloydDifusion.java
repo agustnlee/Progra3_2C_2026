@@ -114,12 +114,7 @@ public final class FloydDifusion {
         private final long[][] distancias;
         private final int[][] siguiente;
 
-        private Resultado(
-                List<Usuario> usuarios,
-                Map<Usuario, Integer> indices,
-                long[][] distancias,
-                int[][] siguiente
-        ) {
+        private Resultado( List<Usuario> usuarios, Map<Usuario, Integer> indices, long[][] distancias, int[][] siguiente ) {
             this.usuarios = Collections.unmodifiableList(
                     new ArrayList<>(usuarios)
             );
@@ -134,10 +129,7 @@ public final class FloydDifusion {
             return usuarios;
         }
 
-        public boolean esAlcanzable(
-                Usuario origen,
-                Usuario destino
-        ) {
+        public boolean esAlcanzable( Usuario origen, Usuario destino ) {
             int i = indiceDe(origen);
             int j = indiceDe(destino);
 
@@ -145,10 +137,7 @@ public final class FloydDifusion {
         }
 
         // Devuelve INFINITO si inalcanzable
-        public long getTiempo(
-                Usuario origen,
-                Usuario destino
-        ) {
+        public long getTiempo( Usuario origen, Usuario destino ) {
             int i = indiceDe(origen);
             int j = indiceDe(destino);
 
@@ -157,10 +146,7 @@ public final class FloydDifusion {
 
         // Reconstruye el camino minimo, incluido origen y destino, lista vacia si no existe
      
-        public List<Usuario> reconstruirCamino(
-                Usuario origen,
-                Usuario destino
-        ) {
+        public List<Usuario> reconstruirCamino( Usuario origen, Usuario destino ) {
             int i = indiceDe(origen);
             int j = indiceDe(destino);
 
