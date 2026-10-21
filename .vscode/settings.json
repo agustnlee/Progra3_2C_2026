@@ -1,0 +1,7 @@
+{
+    "java.project.sourcePaths": [
+        "tareas/quick_merge_sort",
+        "tpo/src/main/java",
+        "tpo/src/test/java"
+    ]
+}
