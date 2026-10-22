@@ -1,4 +1,4 @@
-package com.ajs.tpo;
+package test.java.com.ajs.tpo;
 
 import java.time.LocalDateTime;
 
