@@ -9,3 +9,13 @@ El repositorio se utiliza tanto para el desarrollo del **Trabajo Práctico Oblig
 - `tpo/`: código fuente, pruebas y documentación del TPO, correspondiente a nuestra solución para la propuesta de una red social universitaria.
 - `informes_tpo/`: Archivos pdf para los informes de las entregas 01 y 02.
 - `tareas/`: Algunas tareas, ejercicios y demás actividades prácticas de la materia.
+
+
+## Compilar y ejecutar el TPO
+
+Desde la carpeta `tpo/` 
+
+- Compilar: `./mvnw clean compile`
+- Tests: `./mvnw clean test`
+- Ejecutar Main.java: `./mvnw compile exec:java`
+- Ejecutar TestRunner.java `.\mvnw.cmd test-compile exec:java "-Dexec.mainClass=com.ajs.tpo.TestRunner" "-Dexec.classpathScope=test"`

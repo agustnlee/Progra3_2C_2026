@@ -1,5 +1,6 @@
 {
     "java.project.sourcePaths": [
         "tareas/quick_merge_sort",
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
