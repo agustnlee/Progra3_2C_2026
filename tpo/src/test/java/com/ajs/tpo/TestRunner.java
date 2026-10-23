@@ -1,4 +1,4 @@
-package com.ajs.tpo;
+package test.java.com.ajs.tpo;
 
 
 public class TestRunner {
@@ -17,6 +17,9 @@ public class TestRunner {
 
         // Floyd Tests
         new FloydDifusionTest().ejecutar();
+
+        // Mochila Dinamica
+         new MochilaDinamicaDifusionTest().ejecutar();
     
     }
 
