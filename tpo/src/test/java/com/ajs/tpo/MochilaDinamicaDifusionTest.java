@@ -1,4 +1,4 @@
-package test.java.com.ajs.tpo;
+package com.ajs.tpo;
 
 import com.ajs.tpo.model.Iniciativa;
 import com.ajs.tpo.service.MochilaDinamicaService;

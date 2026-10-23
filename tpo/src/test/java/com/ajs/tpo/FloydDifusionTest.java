@@ -1,5 +1,5 @@
 
-package test.java.com.ajs.tpo;
+package com.ajs.tpo;
 
 import com.ajs.tpo.algorithm.FloydDifusion;
 import com.ajs.tpo.model.GrafoUsuarios;
