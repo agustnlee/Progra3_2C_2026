@@ -1,0 +1,6 @@
+test\java\com\ajs\tpo\FloydDifusionTest.class
+test\java\com\ajs\tpo\FloydDifusionTest$Fixture.class
+test\java\com\ajs\tpo\DijkstraDifusionTest.class
+test\java\com\ajs\tpo\MochilaDinamicaDifusionTest.class
+test\java\com\ajs\tpo\TestRunner.class
+test\java\com\ajs\tpo\TestsMergeSort.class
