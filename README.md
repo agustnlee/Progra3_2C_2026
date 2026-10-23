@@ -7,4 +7,5 @@ El repositorio se utiliza tanto para el desarrollo del **Trabajo Práctico Oblig
 ## Estructura del repositorio
 
 - `tpo/`: código fuente, pruebas y documentación del TPO, correspondiente a nuestra solución para la propuesta de una red social universitaria.
+- `informes_tpo/`: Archivos pdf para los informes de las entregas 01 y 02.
 - `tareas/`: Algunas tareas, ejercicios y demás actividades prácticas de la materia.
