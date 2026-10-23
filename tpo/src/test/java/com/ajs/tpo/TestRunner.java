@@ -1,4 +1,4 @@
-package test.java.com.ajs.tpo;
+package com.ajs.tpo;
 
 
 public class TestRunner {
