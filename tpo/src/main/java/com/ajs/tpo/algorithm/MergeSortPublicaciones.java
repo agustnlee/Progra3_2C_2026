@@ -99,6 +99,9 @@ public class MergeSortPublicaciones {
                 j++;
             }
        }
+       else {
+        break;
+       }
     
     }
         for(int k=0;k <=fin-ini;k++){
