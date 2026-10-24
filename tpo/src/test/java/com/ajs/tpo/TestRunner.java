@@ -10,16 +10,16 @@ public class TestRunner {
 
        TestMergeSort.TestMergeSortPorFecha();
        TestMergeSort.TestMergeSortPorRelevancia();
-  //     TestMergeSort.TestMergeSortConEnumErroneo();
+       TestMergeSort.TestMergeSortConEnumErroneo();
 
         // Dijkstra tests
-    //    new DijkstraDifusionTest().ejecutar();
+        new DijkstraDifusionTest().ejecutar();
 
         // Floyd Tests
-    //    new FloydDifusionTest().ejecutar();
+        new FloydDifusionTest().ejecutar();
 
         // Mochila Dinamica
-    //     new MochilaDinamicaDifusionTest().ejecutar();
+         new MochilaDinamicaDifusionTest().ejecutar();
     
     }
 
