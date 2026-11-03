@@ -10,7 +10,7 @@ import  com.ajs.tpo.enums.CriterioOrdenamientoPublicaciones;
 public class TestsMergeSort {
     
 
-    public void TestMergeSortPorRelevancia(){
+     public void TestMergeSortPorRelevancia(){
 
         MergeSortPublicaciones mergeTest= new MergeSortPublicaciones();
        
@@ -26,8 +26,8 @@ public class TestsMergeSort {
 
         Publicacion[] Mockpublicaciones = { Mockp3, Mockp1, Mockp2, Mockp4 };
 
-        mergeTest.reiniciarContadores();
-        mergeTest.mergeSort(Mockpublicaciones, CriterioOrdenamientoPublicaciones.POR_RELEVANCIA);
+       
+        mergeTest.mergeSort(Mockpublicaciones,0,(Mockpublicaciones.length)-1 , CriterioOrdenamientoPublicaciones.POR_RELEVANCIA);
 
          System.out.println("orden por relevancia");
         for (Publicacion p : Mockpublicaciones) {
@@ -48,8 +48,11 @@ public class TestsMergeSort {
 
         Publicacion[] Mockpublicaciones = { Mockp3, Mockp1, Mockp2, Mockp4 };
 
-        mergeTest.reiniciarContadores();
-        mergeTest.mergeSort(Mockpublicaciones, CriterioOrdenamientoPublicaciones.POR_FECHA);
+      int fin= Mockpublicaciones.length;
+
+      
+
+      mergeTest.mergeSort(Mockpublicaciones,0,(Mockpublicaciones.length )-1, CriterioOrdenamientoPublicaciones.POR_FECHA);
 
            System.out.println("orden por fecha");
         for (Publicacion p : Mockpublicaciones) {
@@ -57,7 +60,7 @@ public class TestsMergeSort {
         } 
 
 
-        
+         
 
     }
 
@@ -73,8 +76,8 @@ public class TestsMergeSort {
 
         Publicacion[] Mockpublicaciones = { Mockp3, Mockp1, Mockp2, Mockp4 };
 
-         mergeTest.reiniciarContadores();
-        mergeTest.mergeSort(Mockpublicaciones, CriterioOrdenamientoPublicaciones.PRUEBA);
+        
+        mergeTest.mergeSort(Mockpublicaciones,0,Mockpublicaciones.length -1, CriterioOrdenamientoPublicaciones.PRUEBA);
 
            System.out.println("orden por enum no valido");
         for (Publicacion p : Mockpublicaciones) {
