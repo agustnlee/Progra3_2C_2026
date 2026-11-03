@@ -1,34 +1,30 @@
 package com.ajs.tpo;
 
 
-
 public class TestRunner {
      public static void main(String[] args) {
         System.out.println("Testing");
 
-        // Mergesort tests
-      //  TestsMergeSort TestMergeSort= new TestsMergeSort();
+      // Mergesort tests
+        TestsMergeSort TestMergeSort= new TestsMergeSort();
 
-      //  TestMergeSort.TestMergeSortPorFecha();
-      //  TestMergeSort.TestMergeSortPorRelevancia();
-      //  TestMergeSort.TestMergeSortConEnumErroneo();
-
+        TestMergeSort.TestMergeSortPorFecha();
+        TestMergeSort.TestMergeSortPorRelevancia();
       // Backtracking equipos Test
 
-      TestBacktrackingEquipos testBack= new TestBacktrackingEquipos();
-
-      testBack.TestEquiposConRestriccionDehabilidadesIntegranteObligatorioEIncompatibles();
+        BacktrackingSubconjuntosEquipoTest.ejecutar();
 
 
 
-        // Dijkstra tests
-      //  new DijkstraDifusionTest().ejecutar();
 
-        // Floyd Tests
-      //  new FloydDifusionTest().ejecutar();
+      // Dijkstra tests
+        // DijkstraDifusionTest.ejecutar();
 
-        // Mochila Dinamica
-      //   new MochilaDinamicaDifusionTest().ejecutar();
+      // Floyd Tests
+        //FloydDifusionTest.ejecutar();
+
+      // Mochila Dinamica
+        // MochilaDinamicaDifusionTest.ejecutar();
     
     }
 
