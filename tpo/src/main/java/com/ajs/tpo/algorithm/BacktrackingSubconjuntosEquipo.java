@@ -3,8 +3,13 @@ package com.ajs.tpo.algorithm;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 
+import com.ajs.tpo.model.Equipo;
+import com.ajs.tpo.model.RestriccionesEquipo;
 import com.ajs.tpo.model.Usuario;
 
 public class BacktrackingSubconjuntosEquipo {
