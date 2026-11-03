@@ -9,7 +9,7 @@ import com.ajs.tpo.model.Usuario;
 
 public class TestBacktrackingEquipos {
 
-    public void TestEquipos(){
+    public void TestEquiposConRestriccionDehabilidadesIntegranteObligatorioEIncompatibles(){
         
 
         
@@ -28,34 +28,31 @@ public class TestBacktrackingEquipos {
         Usuario u4 = new Usuario(4, "Fran");
         u4.agregarHabilidad("sql");
         u4.agregarHabilidad("react");
+        u4.agregarHabilidad("java");
 
+        Usuario u5 = new Usuario(5, "Giuliana");
         
-        Usuario[] todos = new Usuario[] { u1, u2, u3, u4 };
+        u5.agregarHabilidad("python");
+        u5.agregarHabilidad("java");
+        
+        Usuario[] todos = new Usuario[] { u1, u2, u3, u4 ,u5};
 
        
-        int k = 3;
-        int[] usuarios = new int[k]; 
+        int tamanioEquipo = 3;
+        int[] usuarios = new int[tamanioEquipo]; 
 
         Set<String> habilidadesReq = new HashSet<>();
-        habilidadesReq.add("Java");
+        habilidadesReq.add("java");
 
         
         Set<Usuario> obligatorios = new HashSet<>();
          obligatorios.add(u1);
 
        
-        Usuario[] incompatibles = new Usuario[] { };
+        Usuario[] incompatibles = new Usuario[] {u1,u4};
 
-        
-        BacktrackingSubconjuntosEquipo.Backtracking(
-            usuarios, 
-            0,               // Etapa inicial E = 0
-            todos.length,    // n
-            todos,           // Arreglo completo de usuarios
-            k,               // Tamaño del equipo
-            habilidadesReq,  // Habilidades requeridas
-            obligatorios,    // Usuarios obligatorios
-            incompatibles    // Arreglo de incompatibles
+        System.out.println("Los integrantes validos para formar un equipo son:");
+        BacktrackingSubconjuntosEquipo.Backtracking( usuarios,  0,todos.length,todos,tamanioEquipo,habilidadesReq,obligatorios,incompatibles    
         );
 
 

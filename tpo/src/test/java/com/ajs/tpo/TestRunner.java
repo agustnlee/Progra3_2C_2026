@@ -17,7 +17,7 @@ public class TestRunner {
 
       TestBacktrackingEquipos testBack= new TestBacktrackingEquipos();
 
-      testBack.TestEquipos();
+      testBack.TestEquiposConRestriccionDehabilidadesIntegranteObligatorioEIncompatibles();
 
 
 
