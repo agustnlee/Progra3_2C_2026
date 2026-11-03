@@ -8,9 +8,9 @@ public class TestRunner {
         // Mergesort tests
         TestsMergeSort TestMergeSort= new TestsMergeSort();
 
-        TestMergeSort.TestMergeSortPorFecha();
-        TestMergeSort.TestMergeSortPorRelevancia();
-        TestMergeSort.TestMergeSortConEnumErroneo();
+       TestMergeSort.TestMergeSortPorFecha();
+       TestMergeSort.TestMergeSortPorRelevancia();
+       TestMergeSort.TestMergeSortConEnumErroneo();
 
         // Dijkstra tests
         new DijkstraDifusionTest().ejecutar();

@@ -77,7 +77,7 @@ public class PublicacionService {
     // del repositorio a un arreglo, se ordena y se devuelve como lista nueva
     private List<Publicacion> ordenarMuro(CriterioOrdenamientoPublicaciones criterio) {
         Publicacion[] arreglo = publicaciones.listar().toArray(new Publicacion[0]);
-        MergeSortPublicaciones.mergeSort(arreglo, criterio);
+        MergeSortPublicaciones.mergeSort(arreglo,0,(arreglo.length) -1, criterio);
         return new ArrayList<>(Arrays.asList(arreglo));
     }
 }
