@@ -14,42 +14,35 @@ import com.ajs.tpo.model.Usuario;
 
 public class BacktrackingSubconjuntosEquipo {
 
+  public static final int MAX_PASOS = 200;
+  
 
-public static void Backtracking(int[] usuarios, int E, int n, Usuario[] todos, int k, Set<String> habilidadesReq, Set<Usuario> obligatorios, Usuario[] incompatibles) {
-// usuarios es la lista vacia que gurada los integrantes solucion,
-//  E son las etapas,
-//  n es el largo de la lista de todos los integrantes que se van a comparar, 
-// todos son todos los integrantes que se evaluan para formar un equipo,
-//k es el tamaño del equipo que se quiere armar,
-//habilidadesReq es un conjunto con las habilidades que tienen que tener los usuarios para estar en un equipo,
-//Obligatorios es un conjunto de usuarios que deben ser parte del equipo
-// e incompatibles es una lista de usuarios que tiene los usuarios que no pueden estar en un mismo equipo de a pares. si un integrante no puede estar con varios otros se repite en la lista
+  public static void Backtracking(int[] usuarios, int E, int n, Usuario[] todos, int k, Set<String> habilidadesReq, Set<Usuario> obligatorios, Usuario[] incompatibles, 
+    List<Equipo> equipos, List<String> pasos) {
 
-
-
-        boolean solucion = false;
         usuarios[E] = 0; 
 
-        while (usuarios[E] <= n - 1 & !solucion) {
+        while (usuarios[E] <= n - 1) {
             if (EquipoValido(usuarios, E, n, todos, k, habilidadesReq, obligatorios, incompatibles)) {
                 if (E == k - 1) {
-                    for (int t = 0; t < usuarios.length; t++) {
-                        Usuario u = todos[usuarios[t]];
-                        System.out.println(" id:" + u.getId() + " nombre: " + u.getNombre());
-
-                    }
-                    System.out.println(" ");
-                   
+                    List<Usuario> integrantes = new ArrayList<>();
+                    for (int t = 0; t < k; t++) integrantes.add(todos[usuarios[t]]);
+                        Equipo eq = new Equipo(integrantes);
+                        equipos.add(eq);
+                        registrar(pasos, "Equipo valido: " + eq);
                 } else if (E < k - 1) {
-                    Backtracking(usuarios, E + 1, n, todos, k, habilidadesReq, obligatorios, incompatibles);
+                    registrar(pasos, "Se agrega " + todos[usuarios[E]].getNombre() + " como integrante " + (E + 1));
+                    Backtracking(usuarios, E + 1, n, todos, k, habilidadesReq, obligatorios,
+                        incompatibles, equipos, pasos);
                 }
-            } 
+            }
+            
             usuarios[E] = usuarios[E] + 1;
           
         }
-    }
+  }
 
-    public static boolean EquipoValido(int[] usuarios, int E, int n, Usuario[] todos, int k, Set<String> habilidadesReq, Set<Usuario> obligatorios, Usuario[] incompatibles) {
+  public static boolean EquipoValido(int[] usuarios, int E, int n, Usuario[] todos, int k, Set<String> habilidadesReq, Set<Usuario> obligatorios, Usuario[] incompatibles) {
         // CHEQUEO REPETIDOS
         for (int i = 0; i <= E - 1; i++) {
             if (usuarios[i] >= usuarios[E]) {
@@ -65,7 +58,7 @@ public static void Backtracking(int[] usuarios, int E, int n, Usuario[] todos, i
         //CHEQUEO INCOMPATIBLES 
         if (incompatibles != null) { 
             for (int i = 1; i <= incompatibles.length - 1; i = i + 2) {
-                if (usuariosActuales.contains(incompatibles[i - 1]) & usuariosActuales.contains(incompatibles[i])) {
+                if (usuariosActuales.contains(incompatibles[i - 1]) && usuariosActuales.contains(incompatibles[i])) {
                     return false; 
                 }
             }
@@ -73,22 +66,61 @@ public static void Backtracking(int[] usuarios, int E, int n, Usuario[] todos, i
 
         if (E == k - 1) {
             // CHEQUEO OBLIGATORIOS
-            if (!obligatorios.isEmpty() & !usuariosActuales.containsAll(obligatorios)) {
+            if (obligatorios != null && !obligatorios.isEmpty() & !usuariosActuales.containsAll(obligatorios)) {
                 return false;
             }
 
             // CHEQUEO HABILIDADES
-            if (!habilidadesReq.isEmpty()) {
-                for (Usuario u : usuariosActuales) {
-                   if (!u.getHabilidades().containsAll(habilidadesReq)) {
-                    return false;
-                }
-                
-                }
+            if (habilidadesReq != null && !habilidadesReq.isEmpty()) {
+                Set<String> cubiertas = new HashSet<>();
+                for (Usuario u : usuariosActuales) cubiertas.addAll(u.getHabilidades());
+                if (!cubiertas.containsAll(habilidadesReq)) return false;
+        
             }
         } 
         return true;
+  }
+
+  private static void registrar(List<String> pasos, String paso) {
+    if (pasos.size() < MAX_PASOS) pasos.add(paso);
+  }
+
+
+  ///// Para la ejecucion del algoritmo desde service
+  
+  public static class Resultado {
+    private final List<Equipo> equipos;
+    private final List<String> pasos;
+
+    Resultado(List<Equipo> equipos, List<String> pasos) {
+        this.equipos = equipos;
+        this.pasos = pasos;
     }
+
+    public List<Equipo> getEquipos() { return Collections.unmodifiableList(equipos); }
+    public boolean hayEquipos() { return !equipos.isEmpty(); }
+    public List<String> getPasos() { return Collections.unmodifiableList(pasos); }
+  }
+  
+  public static Resultado ejecutar(List<Usuario> candidatos, RestriccionesEquipo r) {
+    if (candidatos == null || r == null)
+        throw new IllegalArgumentException("Los candidatos y las restricciones son obligatorios");
+    for (Usuario o : r.getObligatorios()) {
+        if (!candidatos.contains(o))
+            throw new IllegalArgumentException("El obligatorio " + o.getNombre() + " no esta entre los candidatos");
+    }
+
+    Usuario[] todos = candidatos.toArray(new Usuario[0]);
+    List<Equipo> equipos = new ArrayList<>();
+    List<String> pasos = new ArrayList<>();
+
+    Backtracking(new int[r.getTamanio()], 0, todos.length, todos, r.getTamanio(),
+            r.getHabilidadesRequeridas(), r.getObligatorios(), r.getIncompatiblesComoPares(), equipos, pasos);
+
+    return new Resultado(equipos, pasos);
+  }
+
+
 }
 
 
