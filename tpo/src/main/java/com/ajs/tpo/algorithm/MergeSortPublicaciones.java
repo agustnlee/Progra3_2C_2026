@@ -5,34 +5,10 @@ import com.ajs.tpo.enums.*;
 
 public class MergeSortPublicaciones {
 
-// compara 2 publicaciones por relevancia descendente y si son iguales se desempata por id ascendente
-// negativo si p1 tiene que ir ANTES de p2, positivo si p1 DESPUES de p2, 0 si son iguales en relevancia
-  /*   private static  int CompararRelevancia(Publicacion p1, Publicacion p2) {
-       
-        if (p1.getRelevancia()!=p2.getRelevancia()) {
-            System.out.println("primer valor:"+ p1.getId()+ "segundo valor:"+p2.getId());
-            return Double.compare(p2.getRelevancia(), p1.getRelevancia()); // para orden descendente
-        } else {
-            return CompararFecha(p1, p2); // para orden ascendente  
-        }
+    public static void mergeSort(Publicacion[] arr, CriterioOrdenamientoPublicaciones tipo) { // Para su utilizacion en service
+        if (arr == null || arr.length < 2) return;
+        mergeSort(arr, 0, arr.length - 1, tipo);
     }
-
-    private static  int CompararId(Publicacion p1, Publicacion p2){
-       
-        return Integer.compare(p1.getId(), p2.getId());
-    }
-
-    private static int CompararFecha(Publicacion p1, Publicacion p2){
-       
-        if (!p1.getFechaHora().equals(p2.getFechaHora())){
-           if (p1.getFechaHora().isAfter(p2.getFechaHora())){
-            return -1;
-           }
-           else return 1;
-        }
-        else return CompararId(p1, p2);
-    }
-*/
 
 
     public static void mergeSort(Publicacion[] arr, int ini, int fin, CriterioOrdenamientoPublicaciones tipo) {
