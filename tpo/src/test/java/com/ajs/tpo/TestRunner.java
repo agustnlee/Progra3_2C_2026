@@ -1,7 +1,6 @@
 package com.ajs.tpo;
 
 
-
 public class TestRunner {
      public static void main(String[] args) {
         System.out.println("Testing");
@@ -13,20 +12,19 @@ public class TestRunner {
         TestMergeSort.TestMergeSortPorRelevancia();
       // Backtracking equipos Test
 
-        TestBacktrackingEquipos testBack= new TestBacktrackingEquipos();
+        BacktrackingSubconjuntosEquipoTest.ejecutar();
 
-        testBack.TestEquiposConRestriccionDehabilidadesIntegranteObligatorioEIncompatibles();
 
 
 
       // Dijkstra tests
-        //new DijkstraDifusionTest().ejecutar();
+        // DijkstraDifusionTest.ejecutar();
 
       // Floyd Tests
-        //new FloydDifusionTest().ejecutar();
+        //FloydDifusionTest.ejecutar();
 
       // Mochila Dinamica
-        //new MochilaDinamicaDifusionTest().ejecutar();
+        // MochilaDinamicaDifusionTest.ejecutar();
     
     }
 
