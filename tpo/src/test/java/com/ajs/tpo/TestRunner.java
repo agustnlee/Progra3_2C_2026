@@ -13,15 +13,17 @@ public class TestRunner {
 
 
 
-
       // Dijkstra tests
-        // DijkstraDifusionTest.ejecutar();
+      DijkstraDifusionTest DT = new DijkstraDifusionTest();
+      DT.ejecutar();
 
       // Floyd Tests
-        //FloydDifusionTest.ejecutar();
+      FloydDifusionTest FT = new FloydDifusionTest();
+      FT.ejecutar();
 
       // Mochila Dinamica
-        // MochilaDinamicaDifusionTest.ejecutar();
+      MochilaDinamicaDifusionTest MD = new MochilaDinamicaDifusionTest();
+      MD.ejecutar();
     
     }
 
