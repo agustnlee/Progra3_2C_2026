@@ -40,6 +40,18 @@ public class Consola {
         return leerLinea(mensaje);
     }
 
+    // Lee una linea (si es - se cancela)
+    private String leerLinea(String mensaje) {
+        if (!avisado) {
+            System.out.println("(Ingrese - para cancelar operacion)");
+            avisado = true;
+        }
+        System.out.print(mensaje);
+        String linea = in.nextLine().trim();
+        if (linea.equals(CANCELAR)) throw new CancelacionException();
+        return linea;
+    }
+
     // Ids separados por coma ("1, 3, 4"). Vacio = lista vacia
     public List<Integer> leerIds(String mensaje) {
         while (true) {
@@ -56,17 +68,6 @@ public class Consola {
         }
     }
 
-    // Lee una linea (si es - se cancela)
-    private String leerLinea(String mensaje) {
-        if (!avisado) {
-            System.out.println("(Ingrese - en cualquier dato para cancelar)");
-            avisado = true;
-        }
-        System.out.print(mensaje);
-        String linea = in.nextLine().trim();
-        if (linea.equals(CANCELAR)) throw new CancelacionException();
-        return linea;
-    }
 
     // Titulo
     public void titulo(String titulo) {

@@ -40,21 +40,21 @@ public class ConexionesCLI implements ModuloCLI {
         switch (op) {
             case 1 -> consola.listado("Grafo de usuarios", grafo.representacion());
             case 2 -> {
-                int id = consola.leerOpcion("Id usuario: ");
+                int id = consola.leerInt("Id usuario: ");
                 List<String> filas = new ArrayList<>();
                 for (Conexion c : conexiones.consultarConexiones(id)) filas.add(c.toString());
                 consola.listado("Conexiones salientes", filas);
             }
             case 3 -> consola.mensaje("Creada: " + conexiones.crearConexion(
-                    consola.leerOpcion("Origen: "), consola.leerOpcion("Destino: "), consola.leerOpcion("Tiempo (min): ")));
+                    consola.leerInt("Origen: "), consola.leerInt("Destino: "), consola.leerInt("Tiempo (min): ")));
             case 4 -> {
-                conexiones.modificarTiempo(consola.leerOpcion("Origen: "), consola.leerOpcion("Destino: "),
-                        consola.leerOpcion("Nuevo tiempo (min): "));
+                conexiones.modificarTiempo(consola.leerInt("Origen: "), consola.leerInt("Destino: "),
+                        consola.leerInt("Nuevo tiempo (min): "));
                 consola.mensaje("Tiempo modificado.");
             }
-            case 5 -> { conexiones.habilitarConexion(consola.leerOpcion("Origen: "), consola.leerOpcion("Destino: ")); consola.mensaje("Habilitada."); }
-            case 6 -> { conexiones.deshabilitarConexion(consola.leerOpcion("Origen: "), consola.leerOpcion("Destino: ")); consola.mensaje("Deshabilitada."); }
-            case 7 -> { conexiones.eliminarConexion(consola.leerOpcion("Origen: "), consola.leerOpcion("Destino: ")); consola.mensaje("Eliminada."); }
+            case 5 -> { conexiones.habilitarConexion(consola.leerInt("Origen: "), consola.leerInt("Destino: ")); consola.mensaje("Habilitada."); }
+            case 6 -> { conexiones.deshabilitarConexion(consola.leerInt("Origen: "), consola.leerInt("Destino: ")); consola.mensaje("Deshabilitada."); }
+            case 7 -> { conexiones.eliminarConexion(consola.leerInt("Origen: "), consola.leerInt("Destino: ")); consola.mensaje("Eliminada."); }
             case 0 -> { }
             default -> consola.mensaje("Opcion invalida.");
         }

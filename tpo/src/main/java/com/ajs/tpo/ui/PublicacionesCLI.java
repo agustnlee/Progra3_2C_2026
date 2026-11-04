@@ -42,37 +42,33 @@ public class PublicacionesCLI implements ModuloCLI {
     private void accion(int op) {
         switch (op) {
             case 1 -> mostrar("Listado de publicaciones", publicaciones.listar());
-            case 2 -> {
-                mostrar("Muro por fecha (mas reciente primero)", publicaciones.muroPorFecha());
-            }
-            case 3 -> {
-                mostrar("Muro por relevancia", publicaciones.muroPorRelevancia());
-            }
-            case 4 -> mostrar("Publicaciones del autor", publicaciones.listarPorAutor(consola.leerOpcion("Id autor: ")));
+            case 2 -> mostrar("Muro por fecha (mas reciente primero)", publicaciones.muroPorFecha());
+            case 3 -> mostrar("Muro por relevancia", publicaciones.muroPorRelevancia());
+            case 4 -> mostrar("Publicaciones del autor", publicaciones.listarPorAutor(consola.leerInt("Id autor: ")));
             case 5 -> consola.mensaje("Creada con id " + publicaciones.crear(
-                        consola.leerOpcion("Id autor: ")).getId());
+                    consola.leerInt("Id autor: ")).getId());
             case 6 -> {
-                publicaciones.modificarReacciones(consola.leerOpcion("Id publicacion: "), consola.leerOpcion("Nuevas reacciones: "));
+                publicaciones.modificarReacciones(consola.leerInt("Id publicacion: "), consola.leerInt("Nuevas reacciones: "));
                 consola.mensaje("Modificada.");
             }
-            case 7 -> { publicaciones.eliminar(consola.leerOpcion("Id publicacion: ")); consola.mensaje("Eliminada."); }
+            case 7 -> { publicaciones.eliminar(consola.leerInt("Id publicacion: ")); consola.mensaje("Eliminada."); }
             case 8 -> {
                 List<String> filas = new ArrayList<>();
-                for (Comentario c : publicaciones.listarComentarios(consola.leerOpcion("Id publicacion: "))) {
+                for (Comentario c : publicaciones.listarComentarios(consola.leerInt("Id publicacion: "))) {
                     filas.add(c + "  (" + c.getFechaHora().format(FMT) + ")");
                 }
                 consola.listado("Comentarios", filas);
             }
             case 9 -> consola.mensaje("Comentario agregado con id " + publicaciones.agregarComentario(
-                    consola.leerOpcion("Id publicacion: "), consola.leerOpcion("Id autor del comentario: "),
+                    consola.leerInt("Id publicacion: "), consola.leerInt("Id autor del comentario: "),
                     consola.leerTexto("Texto: ")).getId());
             case 10 -> {
-                publicaciones.modificarComentario(consola.leerOpcion("Id publicacion: "),
-                        consola.leerOpcion("Id comentario: "), consola.leerTexto("Nuevo texto: "));
+                publicaciones.modificarComentario(consola.leerInt("Id publicacion: "),
+                        consola.leerInt("Id comentario: "), consola.leerTexto("Nuevo texto: "));
                 consola.mensaje("Comentario modificado.");
             }
             case 11 -> {
-                publicaciones.eliminarComentario(consola.leerOpcion("Id publicacion: "), consola.leerOpcion("Id comentario: "));
+                publicaciones.eliminarComentario(consola.leerInt("Id publicacion: "), consola.leerInt("Id comentario: "));
                 consola.mensaje("Comentario eliminado.");
             }
             case 0 -> { }
