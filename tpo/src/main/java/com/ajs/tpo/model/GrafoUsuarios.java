@@ -129,6 +129,25 @@ public class GrafoUsuarios {
         return total;
     }
 
+    // Representacion detallada para UI: Una fila por usuario {1 Ana} -> {2 Beto (5 min), 3 Carla (2 min, DESHABILITADA)}
+    public List<String> representacion() {
+        List<String> filas = new ArrayList<>();
+        for (Usuario u : getUsuarios()) {
+            StringBuilder sb = new StringBuilder("{" + u.getId() + " " + u.getNombre() + "} -> {");
+            boolean primero = true;
+            for (Conexion c : adyacencia.get(u)) {
+                if (!primero) sb.append(", ");
+                sb.append(c.getDestino().getId()).append(" ").append(c.getDestino().getNombre())
+                .append(" (").append(c.getTiempo()).append(" min")
+                .append(c.isHabilitada() ? "" : ", DESHABILITADA").append(")");
+                primero = false;
+            }
+        filas.add(sb.append("}").toString());
+    }
+    return filas;
+}
+
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
