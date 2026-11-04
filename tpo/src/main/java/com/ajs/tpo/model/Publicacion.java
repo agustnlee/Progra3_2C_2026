@@ -25,7 +25,11 @@ public class Publicacion {
     private final Map<Integer, Comentario> comentarios = new LinkedHashMap<>();
     private int siguienteIdComentario = 1;
 
-    public Publicacion(int id, Usuario autor, LocalDateTime fechaHora, int reacciones) {
+    public Publicacion(int id, Usuario autor, LocalDateTime fechaHora) { // creacion desde CLI
+        this(id, autor, fechaHora, 0);
+    }
+
+    public Publicacion(int id, Usuario autor, LocalDateTime fechaHora, int reacciones) { // creacion para testing
         if (autor == null) throw new IllegalArgumentException("El autor es obligatorio");
         if (fechaHora == null) throw new IllegalArgumentException("La fecha y hora son obligatorias");
         validarReacciones(reacciones);

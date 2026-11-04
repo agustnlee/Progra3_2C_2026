@@ -26,9 +26,17 @@ public class PublicacionService {
 
     // publicacion
 
-    // Alta con fecha y hora actuales
-    public Publicacion crear(int autorId, int reacciones) {
-        return crear(publicaciones.generarId(), autorId, LocalDateTime.now(), reacciones);
+    // Alta con fecha y hora actuales y 0 reacciones
+    public Publicacion crear(int autorId) {
+        return crear(publicaciones.generarId(), autorId, LocalDateTime.now());
+    }
+
+    // Alta con id y fecha fijos, 0 reacciones
+    public Publicacion crear(int id, int autorId, LocalDateTime fechaHora) {
+        Usuario autor = obtenerUsuario(autorId, "autor");
+        Publicacion p = new Publicacion(id, autor, fechaHora);
+        publicaciones.agregar(p);
+        return p;
     }
 
     // Alta con id y fecha fijos (para pruebas y datos de ejemplo)

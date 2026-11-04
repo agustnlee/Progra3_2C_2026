@@ -50,7 +50,7 @@ public class PublicacionesCLI implements ModuloCLI {
             }
             case 4 -> mostrar("Publicaciones del autor", publicaciones.listarPorAutor(consola.leerInt("Id autor: ")));
             case 5 -> consola.mensaje("Creada con id " + publicaciones.crear(
-                    consola.leerInt("Id autor: "), consola.leerInt("Reacciones: ")).getId());
+                        consola.leerInt("Id autor: ")).getId());
             case 6 -> {
                 publicaciones.modificarReacciones(consola.leerInt("Id publicacion: "), consola.leerInt("Nuevas reacciones: "));
                 consola.mensaje("Modificada.");
