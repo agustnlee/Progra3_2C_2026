@@ -59,6 +59,10 @@ public class DijkstraDifusion {
         public Usuario getOrigen() {
             return origen;
         }
+
+        public Map<Usuario, Integer> getDistancias() { 
+            return Collections.unmodifiableMap(distancias); 
+        }
     }
  
     private static class Entrada {
