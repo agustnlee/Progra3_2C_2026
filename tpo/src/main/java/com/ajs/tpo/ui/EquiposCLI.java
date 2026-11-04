@@ -52,7 +52,7 @@ public class EquiposCLI implements ModuloCLI {
                     consola.mensaje("Primero ejecute la busqueda con restricciones (opcion 1) y obtenga equipos validos.");
                     return;
                 }
-                int id = equipos.crearDesdeResultado(ultimo, consola.leerOpcion("Numero de equipo del resultado: "));
+                int id = equipos.crearDesdeResultado(ultimo, consola.leerInt("Numero de equipo del resultado: "));
                 consola.mensaje("Equipo confirmado con id " + id);
             }
             case 3 -> consola.mensaje("Equipo creado con id "
@@ -64,14 +64,14 @@ public class EquiposCLI implements ModuloCLI {
                 }
                 consola.listado("Equipos confirmados", filas);
             }
-            case 5 -> { equipos.eliminar(consola.leerOpcion("Id de equipo: ")); consola.mensaje("Equipo eliminado."); }
+            case 5 -> { equipos.eliminar(consola.leerInt("Id de equipo: ")); consola.mensaje("Equipo eliminado."); }
             case 0 -> { }
             default -> consola.mensaje("Opcion invalida.");
         }
     }
 
     private void buscar() {
-        int tamanio = consola.leerOpcion("Tamanio del equipo: ");
+        int tamanio = consola.leerInt("Tamanio del equipo: ");
         List<String> habilidades = leerLista("Habilidades requeridas, separadas por coma (vacio = ninguna): ");
         List<Integer> obligatorios = consola.leerIds("Ids de integrantes obligatorios (vacio = ninguno): ");
         List<int[]> incompatibles = leerPares("Pares incompatibles, ej. 1-2, (vacio = ninguno): ");

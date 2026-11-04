@@ -1,17 +1,17 @@
 package com.ajs.tpo.ui;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import com.ajs.tpo.algorithm.BacktrackingCadenasDifusion;
 import com.ajs.tpo.algorithm.DijkstraDifusion;
 import com.ajs.tpo.algorithm.FloydDifusion;
 import com.ajs.tpo.model.Usuario;
+import com.ajs.tpo.service.CadenasAlternativasService;
 import com.ajs.tpo.service.DijkstraService;
 import com.ajs.tpo.service.FloydService;
-import com.ajs.tpo.algorithm.BacktrackingCadenasDifusion;
-import com.ajs.tpo.service.CadenasAlternativasService;
 
 public class DifusionCLI implements ModuloCLI {
 
@@ -35,10 +35,10 @@ public class DifusionCLI implements ModuloCLI {
         int op;
         do {
             consola.titulo("Difusion");
-            System.out.println("1. Cadena mas rapida entre dos usuarios"); //DIjkstra
+            System.out.println("1. Cadena mas rapida entre dos usuarios"); // Dijkstra
             System.out.println("2. Consultar un par de usuarios"); // Floyd
             System.out.println("3. Tabla de tiempos entre todos los pares"); // Floyd
-            System.out.println("4. Cadenas alternativas con restricciones"); // b3
+            System.out.println("4. Cadenas alternativas con restricciones"); // B3
             System.out.println("0. Volver");
             consola.cierre();
             op = consola.leerOpcion("Opcion: ");
@@ -59,8 +59,8 @@ public class DifusionCLI implements ModuloCLI {
     }
 
     private void dijkstra() {
-        int origenId = consola.leerOpcion("Id origen: ");
-        int destinoId = consola.leerOpcion("Id destino: ");
+        int origenId = consola.leerInt("Id origen: ");
+        int destinoId = consola.leerInt("Id destino: ");
         DijkstraDifusion.Resultado r = this.dijkstra.buscarCaminoMasRapido(origenId, destinoId);
 
         // El destino se obtiene a partir de la cadena; si no es alcanzable no hay cadena
@@ -96,8 +96,8 @@ public class DifusionCLI implements ModuloCLI {
     }
 
     private void consultarPar() {
-        int o = consola.leerOpcion("Id origen: ");
-        int d = consola.leerOpcion("Id destino: ");
+        int o = consola.leerInt("Id origen: ");
+        int d = consola.leerInt("Id destino: ");
         consola.titulo("Resultado");
         if (!floyd.esAlcanzable(o, d)) {
             System.out.println("No existe cadena de difusion entre esos usuarios.");
@@ -110,7 +110,7 @@ public class DifusionCLI implements ModuloCLI {
 
     private void tablaCompleta() {
         FloydDifusion.Resultado r = floyd.obtenerResultados();
-        List<String> filas = new java.util.ArrayList<>();
+        List<String> filas = new ArrayList<>();
         for (Usuario origen : r.getUsuarios()) {
             StringBuilder sb = new StringBuilder("{" + origen.getId() + " " + origen.getNombre() + "} -> {");
             boolean primero = true;
@@ -133,7 +133,6 @@ public class DifusionCLI implements ModuloCLI {
         int maxInter = consola.leerInt("Maximo de intermediarios: ");
         Set<Integer> excluidos = new HashSet<>(consola.leerIds("Ids excluidos (vacio = ninguno): "));
 
-        // Llamada al service
         BacktrackingCadenasDifusion.Resultado r =
                 cadenas.buscarCadenasAlternativas(origen, destino, tiempoMax, maxInter, excluidos);
 
@@ -149,7 +148,6 @@ public class DifusionCLI implements ModuloCLI {
             System.out.println("No existe ninguna cadena que cumpla las restricciones.");
         }
 
-    
         int mostrados = 0;
         for (String paso : r.getPasos()) {
             if (paso.startsWith("Retrocede")) continue;

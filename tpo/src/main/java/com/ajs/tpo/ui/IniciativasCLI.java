@@ -41,13 +41,13 @@ public class IniciativasCLI implements ModuloCLI {
         switch (op) {
             case 1 -> consola.listado("Listado de iniciativas", filas(iniciativas.listar()));
             case 2 -> consola.mensaje("Creada: " + fila(iniciativas.crear(
-                    consola.leerTexto("Nombre: "), consola.leerOpcion("Costo (entero > 0): "),
-                    consola.leerOpcion("Impacto (entero >= 0): "))));
+                    consola.leerTexto("Nombre: "), consola.leerInt("Costo (entero > 0): "),
+                    consola.leerInt("Impacto (entero >= 0): "))));
             case 3 -> consola.mensaje("Modificada: " + fila(iniciativas.modificar(
-                    consola.leerOpcion("Id: "), consola.leerTexto("Nombre: "),
-                    consola.leerOpcion("Costo: "), consola.leerOpcion("Impacto: "))));
-            case 4 -> { iniciativas.eliminar(consola.leerOpcion("Id: ")); consola.mensaje("Eliminada."); }
-            case 5 -> financiar(consola.leerOpcion("Presupuesto disponible: "));
+                    consola.leerInt("Id: "), consola.leerTexto("Nombre: "),
+                    consola.leerInt("Costo: "), consola.leerInt("Impacto: "))));
+            case 4 -> { iniciativas.eliminar(consola.leerInt("Id: ")); consola.mensaje("Eliminada."); }
+            case 5 -> financiar(consola.leerInt("Presupuesto disponible: "));
             case 0 -> { }
             default -> consola.mensaje("Opcion invalida.");
         }
