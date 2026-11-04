@@ -12,11 +12,13 @@ public class UsuarioService {
  
     private final UsuarioRepository usuarios;
     private final PublicacionRepository publicaciones;
+    private final EquipoService equipoService;
     private final GrafoUsuarios grafo;
  
-    public UsuarioService(UsuarioRepository usuarios, PublicacionRepository publicaciones, GrafoUsuarios grafo) {
+    public UsuarioService(UsuarioRepository usuarios, PublicacionRepository publicaciones, GrafoUsuarios grafo, EquipoService equipoService) {
         this.usuarios = usuarios;
         this.publicaciones = publicaciones;
+        this.equipoService = equipoService;
         this.grafo = grafo;
     }
  
@@ -42,8 +44,13 @@ public class UsuarioService {
     public void eliminar(int id) {
         Usuario u = obtener(id);
         grafo.eliminarUsuario(u);
+        equipoService.eliminarEquiposDe(u);   // <- nuevo
         for (Publicacion p : publicaciones.listar()) {
-            if (p.getAutor().equals(u)) publicaciones.eliminar(p.getId());
+            if (p.getAutor().equals(u)) {
+                publicaciones.eliminar(p.getId());
+            } else {
+                p.eliminarComentariosDe(u);
+            }
         }
         usuarios.eliminar(id);
     }
