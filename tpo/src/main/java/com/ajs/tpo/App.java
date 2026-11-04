@@ -58,7 +58,7 @@ public class App {
     
     private static void cargarDatosDePrueba(UsuarioService us, PublicacionService ps, ConexionService cs, IniciativaService is) {
 
-        us.crear("Ana"); us.crear("Beto"); us.crear("Carla"); us.crear("Diego"); us.crear("Eva");
+        us.crear("Agustin"); us.crear("Juani"); us.crear("Sofia"); us.crear("Diego"); us.crear("Eva");
         us.registrarHabilidad(1, "java"); us.registrarHabilidad(2, "sql");
         us.registrarHabilidad(3, "diseño"); us.registrarHabilidad(4, "java"); us.registrarHabilidad(4, "sql");
         us.registrarHabilidad(5, "diseño");
