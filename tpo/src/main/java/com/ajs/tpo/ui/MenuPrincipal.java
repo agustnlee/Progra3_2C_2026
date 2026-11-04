@@ -15,7 +15,7 @@ public class MenuPrincipal {
     public void iniciar() {
         int op;
         do {
-            consola.titulo("RED SOCIAL UNIVERSITARIA - ADMINISTRADOR");
+            consola.titulo("--- RED SOCIAL UNIVERSITARIA - ADMINISTRADOR ---");
             for (int i = 0; i < modulos.size(); i++) {
                 System.out.println((i + 1) + ". " + modulos.get(i).nombre());
             }
