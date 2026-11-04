@@ -11,7 +11,8 @@ public class TestRunner {
 
         BacktrackingSubconjuntosEquipoTest.ejecutar();
 
-
+        // Backtracking: cadenas alternativas de difusion (B3)
+         BacktrackingCadenasDifusionTest.ejecutar();
 
 
       // Dijkstra tests
