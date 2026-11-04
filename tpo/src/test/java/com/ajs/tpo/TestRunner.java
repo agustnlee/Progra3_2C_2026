@@ -6,10 +6,7 @@ public class TestRunner {
         System.out.println("Testing");
 
       // Mergesort tests
-        TestsMergeSort TestMergeSort= new TestsMergeSort();
-
-        TestMergeSort.TestMergeSortPorFecha();
-        TestMergeSort.TestMergeSortPorRelevancia();
+        MergeSortPublicacionesTest.ejecutar();
       // Backtracking equipos Test
 
         BacktrackingSubconjuntosEquipoTest.ejecutar();
