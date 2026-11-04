@@ -1,4 +1,4 @@
-package test.java.com.ajs.tpo;
+package com.ajs.tpo;
 
 import com.ajs.tpo.algorithm.BacktrackingCadenasDifusion;
 import com.ajs.tpo.model.GrafoUsuarios;
