@@ -51,6 +51,18 @@ public class ConexionService {
         }
     }
 
+    // cambia el tiempo (minutos, positivo) de una conexion existente
+    public void modificarTiempo(int origenId, int destinoId, int tiempo) {
+        if (!grafo.setTiempo(obtener(origenId), obtener(destinoId), tiempo)) {
+            throw new IllegalArgumentException("No existe esa conexion");
+        }
+    }
+
+    public Conexion obtenerConexion(int origenId, int destinoId) {
+        return grafo.buscarConexion(obtener(origenId), obtener(destinoId))
+                .orElseThrow(() -> new IllegalArgumentException("No existe esa conexion"));
+    }
+
     private Usuario obtener(int id) {
         return usuarios.buscarPorId(id)
                 .orElseThrow(() -> new IllegalArgumentException("No existe el usuario con id " + id));

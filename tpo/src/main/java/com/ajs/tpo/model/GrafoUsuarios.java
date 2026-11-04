@@ -22,7 +22,7 @@ public class GrafoUsuarios {
         return version;
     }
 
-    // --- Vertices
+    // Vertices
 
     public void agregarUsuario(Usuario u) {
         if (u == null) throw new IllegalArgumentException("Usuario nulo");
@@ -56,7 +56,7 @@ public class GrafoUsuarios {
         return adyacencia.size();
     }
 
-    // --- Aristas
+    // Aristas
 
     // crea conexion y agrega usuarios si no estaban los usuarios en el grafo
 
@@ -97,7 +97,16 @@ public class GrafoUsuarios {
         return true;
     }
 
-    // --- consutlas
+    // Cambia el tiempo de una conexion existente, Incrementa la version para invalidar la cache de Floyd
+    public boolean setTiempo(Usuario origen, Usuario destino, int tiempo) {
+        Optional<Conexion> c = buscarConexion(origen, destino);
+        if (c.isEmpty()) return false;
+        c.get().setTiempo(tiempo); // valida que sea positivo
+        version++;
+    return true;
+    }
+
+    // consutlas
 
     //  todas las conexiones que salen del usuario (incluye deshabilitadas)
     public List<Conexion> getConexiones(Usuario u) {
