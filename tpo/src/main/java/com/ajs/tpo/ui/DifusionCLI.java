@@ -21,7 +21,7 @@ public class DifusionCLI implements ModuloCLI {
     }
 
     @Override
-    public String nombre() { return "Difusion (cadenas y tiempos)"; }
+    public String nombre() { return "Difusion y cadenas"; }
 
     @Override
     public void ejecutar() {
@@ -99,8 +99,6 @@ public class DifusionCLI implements ModuloCLI {
             System.out.println("Tiempo minimo: " + floyd.consultarTiempoMinimo(o, d) + " min");
         }
         consola.cierre();
-        System.out.println("Los tiempos de todos los pares se calculan una vez y se reutilizan");
-        System.out.println("mientras la red no cambie (se recalculan si se modifican conexiones o usuarios).");
     }
 
     private void tablaCompleta() {

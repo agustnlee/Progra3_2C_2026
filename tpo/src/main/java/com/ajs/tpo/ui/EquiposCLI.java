@@ -28,14 +28,14 @@ public class EquiposCLI implements ModuloCLI {
     }
 
     @Override
-    public String nombre() { return "Equipos (formacion con restricciones)"; }
+    public String nombre() { return "Equipos"; }
 
     @Override
     public void ejecutar() {
         int op;
         do {
             consola.titulo("Equipos");
-            System.out.println("1. Buscar equipos validos (B1)   2. Confirmar un equipo del ultimo resultado");
+            System.out.println("1. Buscar equipos validos con restricciones   2. Confirmar un equipo del ultimo resultado");
             System.out.println("3. Crear equipo manual   4. Listar equipos confirmados   5. Eliminar equipo   0. Volver");
             consola.cierre();
             op = consola.leerInt("Opcion: ");
@@ -49,14 +49,14 @@ public class EquiposCLI implements ModuloCLI {
             case 1 -> buscar();
             case 2 -> {
                 if (ultimo == null || !ultimo.hayEquipos()) {
-                    consola.mensaje("Primero ejecute la busqueda (opcion 1) y obtenga equipos validos.");
+                    consola.mensaje("Primero ejecute la busqueda con restricciones (opcion 1) y obtenga equipos validos.");
                     return;
                 }
                 int id = equipos.crearDesdeResultado(ultimo, consola.leerInt("Numero de equipo del resultado: "));
                 consola.mensaje("Equipo confirmado con id " + id);
             }
             case 3 -> consola.mensaje("Equipo creado con id "
-                    + equipos.crear(consola.leerIds("Ids de integrantes (ej. 1, 2, 3): ")));
+                    + equipos.crear(consola.leerIds("Ids de integrantes (ej. 1): ")));
             case 4 -> {
                 List<String> filas = new ArrayList<>();
                 for (Map.Entry<Integer, Equipo> e : equipos.listar().entrySet()) {
@@ -74,7 +74,7 @@ public class EquiposCLI implements ModuloCLI {
         int tamanio = consola.leerInt("Tamanio del equipo: ");
         List<String> habilidades = leerLista("Habilidades requeridas, separadas por coma (vacio = ninguna): ");
         List<Integer> obligatorios = consola.leerIds("Ids de integrantes obligatorios (vacio = ninguno): ");
-        List<int[]> incompatibles = leerPares("Pares incompatibles, ej. 1-2, 3-4 (vacio = ninguno): ");
+        List<int[]> incompatibles = leerPares("Pares incompatibles, ej. 1-2, (vacio = ninguno): ");
 
         ultimo = formacion.formarEquipos(tamanio, habilidades, obligatorios, incompatibles);
 
@@ -85,10 +85,6 @@ public class EquiposCLI implements ModuloCLI {
 
         if (!ultimo.hayEquipos()) consola.mensaje("No existe ningun equipo que cumpla las restricciones.");
 
-        consola.titulo("Resumen del procedimiento");
-        System.out.println("Se arma el equipo integrante por integrante; si un candidato es incompatible con alguien ya elegido,");
-        System.out.println("se descarta esa rama. Al completar el tamanio se verifica que esten los obligatorios y que el equipo");
-        System.out.println("cubra las habilidades requeridas; si cumple, es un equipo valido.");
         System.out.println("Decisiones principales:");
         int mostrados = 0;
         for (String paso : ultimo.getPasos()) {
@@ -134,7 +130,7 @@ public class EquiposCLI implements ModuloCLI {
                 }
                 return pares;
             } catch (NumberFormatException e) {
-                consola.mensaje("Formato invalido. Ejemplo: 1-2, 3-4");
+                consola.mensaje("Formato invalido. Ejemplo: 1-2");
             }
         }
     }

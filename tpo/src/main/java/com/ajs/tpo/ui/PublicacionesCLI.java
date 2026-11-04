@@ -44,12 +44,9 @@ public class PublicacionesCLI implements ModuloCLI {
             case 1 -> mostrar("Listado de publicaciones", publicaciones.listar());
             case 2 -> {
                 mostrar("Muro por fecha (mas reciente primero)", publicaciones.muroPorFecha());
-                consola.mensaje("Orden: Merge Sort por fecha; ante empate, menor id.");
             }
             case 3 -> {
                 mostrar("Muro por relevancia", publicaciones.muroPorRelevancia());
-                consola.mensaje("Orden: Merge Sort por relevancia (reacciones + 3 x comentarios);");
-                consola.mensaje("ante empate, fecha mas reciente y luego menor id.");
             }
             case 4 -> mostrar("Publicaciones del autor", publicaciones.listarPorAutor(consola.leerInt("Id autor: ")));
             case 5 -> consola.mensaje("Creada con id " + publicaciones.crear(

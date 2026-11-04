@@ -21,7 +21,7 @@ public class IniciativasCLI implements ModuloCLI {
     }
 
     @Override
-    public String nombre() { return "Iniciativas y financiamiento (Mochila 0/1)"; }
+    public String nombre() { return "Iniciativas y financiamiento"; }
 
     @Override
     public void ejecutar() {
@@ -68,12 +68,7 @@ public class IniciativasCLI implements ModuloCLI {
         }
         consola.listado("Iniciativas no financiadas", noElegidas);
 
-        consola.titulo("Resumen del procedimiento");
-        System.out.println("1. Se consideraron " + todas.size() + " iniciativas con presupuesto " + presupuesto + ".");
-        System.out.println("2. Para cada iniciativa y cada presupuesto parcial se guardo el mayor impacto posible,");
-        System.out.println("   decidiendo entre no financiarla o financiarla y sumar su impacto al mejor resultado");
-        System.out.println("   con el presupuesto que queda.");
-        System.out.println("3. Se recorrio la tabla hacia atras para identificar cuales se financian.");
+        System.out.println(" Se consideraron " + todas.size() + " iniciativas con presupuesto " + presupuesto + ".");
         consola.cierre();
     }
 
