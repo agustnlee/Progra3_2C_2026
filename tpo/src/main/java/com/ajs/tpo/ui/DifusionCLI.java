@@ -34,7 +34,7 @@ public class DifusionCLI implements ModuloCLI {
             System.out.println("4. Cadenas alternativas con restricciones"); // b3
             System.out.println("0. Volver");
             consola.cierre();
-            op = consola.leerInt("Opcion: ");
+            op = consola.leerOpcion("Opcion: ");
             final int opcion = op;
             consola.seguro(() -> accion(opcion));
         } while (op != 0);
@@ -52,8 +52,8 @@ public class DifusionCLI implements ModuloCLI {
     }
 
     private void dijkstra() {
-        int origenId = consola.leerInt("Id origen: ");
-        int destinoId = consola.leerInt("Id destino: ");
+        int origenId = consola.leerOpcion("Id origen: ");
+        int destinoId = consola.leerOpcion("Id destino: ");
         DijkstraDifusion.Resultado r = this.dijkstra.buscarCaminoMasRapido(origenId, destinoId);
 
         // El destino se obtiene a partir de la cadena; si no es alcanzable no hay cadena
@@ -89,8 +89,8 @@ public class DifusionCLI implements ModuloCLI {
     }
 
     private void consultarPar() {
-        int o = consola.leerInt("Id origen: ");
-        int d = consola.leerInt("Id destino: ");
+        int o = consola.leerOpcion("Id origen: ");
+        int d = consola.leerOpcion("Id destino: ");
         consola.titulo("Resultado");
         if (!floyd.esAlcanzable(o, d)) {
             System.out.println("No existe cadena de difusion entre esos usuarios.");

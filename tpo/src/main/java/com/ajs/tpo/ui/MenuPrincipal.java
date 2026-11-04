@@ -21,7 +21,7 @@ public class MenuPrincipal {
             }
             System.out.println("0. Salir");
             consola.cierre();
-            op = consola.leerInt("Opcion: ");
+            op = consola.leerOpcion("Opcion: ");
             if (op >= 1 && op <= modulos.size()) modulos.get(op - 1).ejecutar();
             else if (op != 0) consola.mensaje("Opcion invalida.");
         } while (op != 0);

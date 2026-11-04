@@ -38,7 +38,7 @@ public class EquiposCLI implements ModuloCLI {
             System.out.println("1. Buscar equipos validos con restricciones   2. Confirmar un equipo del ultimo resultado");
             System.out.println("3. Crear equipo manual   4. Listar equipos confirmados   5. Eliminar equipo   0. Volver");
             consola.cierre();
-            op = consola.leerInt("Opcion: ");
+            op = consola.leerOpcion("Opcion: ");
             final int opcion = op;
             consola.seguro(() -> accion(opcion));
         } while (op != 0);
@@ -52,7 +52,7 @@ public class EquiposCLI implements ModuloCLI {
                     consola.mensaje("Primero ejecute la busqueda con restricciones (opcion 1) y obtenga equipos validos.");
                     return;
                 }
-                int id = equipos.crearDesdeResultado(ultimo, consola.leerInt("Numero de equipo del resultado: "));
+                int id = equipos.crearDesdeResultado(ultimo, consola.leerOpcion("Numero de equipo del resultado: "));
                 consola.mensaje("Equipo confirmado con id " + id);
             }
             case 3 -> consola.mensaje("Equipo creado con id "
@@ -64,14 +64,14 @@ public class EquiposCLI implements ModuloCLI {
                 }
                 consola.listado("Equipos confirmados", filas);
             }
-            case 5 -> { equipos.eliminar(consola.leerInt("Id de equipo: ")); consola.mensaje("Equipo eliminado."); }
+            case 5 -> { equipos.eliminar(consola.leerOpcion("Id de equipo: ")); consola.mensaje("Equipo eliminado."); }
             case 0 -> { }
             default -> consola.mensaje("Opcion invalida.");
         }
     }
 
     private void buscar() {
-        int tamanio = consola.leerInt("Tamanio del equipo: ");
+        int tamanio = consola.leerOpcion("Tamanio del equipo: ");
         List<String> habilidades = leerLista("Habilidades requeridas, separadas por coma (vacio = ninguna): ");
         List<Integer> obligatorios = consola.leerIds("Ids de integrantes obligatorios (vacio = ninguno): ");
         List<int[]> incompatibles = leerPares("Pares incompatibles, ej. 1-2, (vacio = ninguno): ");

@@ -30,7 +30,7 @@ public class ConexionesCLI implements ModuloCLI {
             System.out.println("1. Ver grafo   2. Conexiones de un usuario   3. Crear   4. Modificar tiempo");
             System.out.println("5. Habilitar   6. Deshabilitar   7. Eliminar   0. Volver");
             consola.cierre();
-            op = consola.leerInt("Opcion: ");
+            op = consola.leerOpcion("Opcion: ");
             final int opcion = op;
             consola.seguro(() -> accion(opcion));
         } while (op != 0);
@@ -40,21 +40,21 @@ public class ConexionesCLI implements ModuloCLI {
         switch (op) {
             case 1 -> consola.listado("Grafo de usuarios", grafo.representacion());
             case 2 -> {
-                int id = consola.leerInt("Id usuario: ");
+                int id = consola.leerOpcion("Id usuario: ");
                 List<String> filas = new ArrayList<>();
                 for (Conexion c : conexiones.consultarConexiones(id)) filas.add(c.toString());
                 consola.listado("Conexiones salientes", filas);
             }
             case 3 -> consola.mensaje("Creada: " + conexiones.crearConexion(
-                    consola.leerInt("Origen: "), consola.leerInt("Destino: "), consola.leerInt("Tiempo (min): ")));
+                    consola.leerOpcion("Origen: "), consola.leerOpcion("Destino: "), consola.leerOpcion("Tiempo (min): ")));
             case 4 -> {
-                conexiones.modificarTiempo(consola.leerInt("Origen: "), consola.leerInt("Destino: "),
-                        consola.leerInt("Nuevo tiempo (min): "));
+                conexiones.modificarTiempo(consola.leerOpcion("Origen: "), consola.leerOpcion("Destino: "),
+                        consola.leerOpcion("Nuevo tiempo (min): "));
                 consola.mensaje("Tiempo modificado.");
             }
-            case 5 -> { conexiones.habilitarConexion(consola.leerInt("Origen: "), consola.leerInt("Destino: ")); consola.mensaje("Habilitada."); }
-            case 6 -> { conexiones.deshabilitarConexion(consola.leerInt("Origen: "), consola.leerInt("Destino: ")); consola.mensaje("Deshabilitada."); }
-            case 7 -> { conexiones.eliminarConexion(consola.leerInt("Origen: "), consola.leerInt("Destino: ")); consola.mensaje("Eliminada."); }
+            case 5 -> { conexiones.habilitarConexion(consola.leerOpcion("Origen: "), consola.leerOpcion("Destino: ")); consola.mensaje("Habilitada."); }
+            case 6 -> { conexiones.deshabilitarConexion(consola.leerOpcion("Origen: "), consola.leerOpcion("Destino: ")); consola.mensaje("Deshabilitada."); }
+            case 7 -> { conexiones.eliminarConexion(consola.leerOpcion("Origen: "), consola.leerOpcion("Destino: ")); consola.mensaje("Eliminada."); }
             case 0 -> { }
             default -> consola.mensaje("Opcion invalida.");
         }

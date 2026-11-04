@@ -27,7 +27,7 @@ public class UsuariosCLI implements ModuloCLI {
             System.out.println("1. Listar   2. Crear   3. Modificar nombre   4. Eliminar");
             System.out.println("5. Agregar habilidad   6. Quitar habilidad   0. Volver");
             consola.cierre();
-            op = consola.leerInt("Opcion: ");
+            op = consola.leerOpcion("Opcion: ");
             final int opcion = op;
             consola.seguro(() -> accion(opcion));
         } while (op != 0);
@@ -38,10 +38,10 @@ public class UsuariosCLI implements ModuloCLI {
             case 1 -> listar();
             case 2 -> consola.mensaje("Creado: " + formato(usuarios.crear(consola.leerTexto("Nombre: "))));
             case 3 -> consola.mensaje("Modificado: " + formato(
-                    usuarios.modificar(consola.leerInt("Id: "), consola.leerTexto("Nuevo nombre: "))));
-            case 4 -> { usuarios.eliminar(consola.leerInt("Id: ")); consola.mensaje("Usuario eliminado."); }
-            case 5 -> { usuarios.registrarHabilidad(consola.leerInt("Id: "), consola.leerTexto("Habilidad: ")); consola.mensaje("Habilidad agregada."); }
-            case 6 -> { usuarios.quitarHabilidad(consola.leerInt("Id: "), consola.leerTexto("Habilidad: ")); consola.mensaje("Habilidad quitada."); }
+                    usuarios.modificar(consola.leerOpcion("Id: "), consola.leerTexto("Nuevo nombre: "))));
+            case 4 -> { usuarios.eliminar(consola.leerOpcion("Id: ")); consola.mensaje("Usuario eliminado."); }
+            case 5 -> { usuarios.registrarHabilidad(consola.leerOpcion("Id: "), consola.leerTexto("Habilidad: ")); consola.mensaje("Habilidad agregada."); }
+            case 6 -> { usuarios.quitarHabilidad(consola.leerOpcion("Id: "), consola.leerTexto("Habilidad: ")); consola.mensaje("Habilidad quitada."); }
             case 0 -> { }
             default -> consola.mensaje("Opcion invalida.");
         }
