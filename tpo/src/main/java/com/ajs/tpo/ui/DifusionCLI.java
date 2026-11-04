@@ -1,23 +1,30 @@
 package com.ajs.tpo.ui;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.ajs.tpo.algorithm.DijkstraDifusion;
 import com.ajs.tpo.algorithm.FloydDifusion;
 import com.ajs.tpo.model.Usuario;
 import com.ajs.tpo.service.DijkstraService;
 import com.ajs.tpo.service.FloydService;
+import com.ajs.tpo.algorithm.BacktrackingCadenasDifusion;
+import com.ajs.tpo.service.CadenasAlternativasService;
 
 public class DifusionCLI implements ModuloCLI {
 
     private final Consola consola;
     private final DijkstraService dijkstra;
     private final FloydService floyd;
+    private final CadenasAlternativasService cadenas;
 
-    public DifusionCLI(Consola consola, DijkstraService dijkstra, FloydService floyd) {
+    public DifusionCLI(Consola consola, DijkstraService dijkstra, FloydService floyd, CadenasAlternativasService cadenas) {
         this.consola = consola;
         this.dijkstra = dijkstra;
         this.floyd = floyd;
+        this.cadenas = cadenas;
     }
 
     @Override
@@ -45,7 +52,7 @@ public class DifusionCLI implements ModuloCLI {
             case 1 -> dijkstra();
             case 2 -> consultarPar();
             case 3 -> tablaCompleta();
-            case 4 -> consola.mensaje("Pendiente "); // TODO: Agregar metodo para llamar 
+            case 4 -> cadenasAlternativas();
             case 0 -> { }
             default -> consola.mensaje("Opcion invalida.");
         }
@@ -117,6 +124,40 @@ public class DifusionCLI implements ModuloCLI {
             filas.add(sb.append("}").toString());
         }
         consola.listado("Tiempos minimos de difusion (solo destinos alcanzables)", filas);
+    }
+
+    private void cadenasAlternativas() {
+        int origen = consola.leerInt("Id origen: ");
+        int destino = consola.leerInt("Id destino: ");
+        int tiempoMax = consola.leerInt("Tiempo maximo total (min): ");
+        int maxInter = consola.leerInt("Maximo de intermediarios: ");
+        Set<Integer> excluidos = new HashSet<>(consola.leerIds("Ids excluidos (vacio = ninguno): "));
+
+        // Llamada al service
+        BacktrackingCadenasDifusion.Resultado r =
+                cadenas.buscarCadenasAlternativas(origen, destino, tiempoMax, maxInter, excluidos);
+
+        List<String> filas = new ArrayList<>();
+        for (BacktrackingCadenasDifusion.Cadena c : r.getCadenas()) {
+            filas.add(c + "  intermediarios: " + Math.max(0, c.getUsuarios().size() - 2));
+        }
+        consola.listado("Cadenas validas encontradas: " + filas.size(), filas);
+
+        if (r.hayCadenas()) {
+            System.out.println("Menor tiempo: " + r.getCadenaMenorTiempo().orElseThrow());
+        } else {
+            System.out.println("No existe ninguna cadena que cumpla las restricciones.");
+        }
+
+    
+        int mostrados = 0;
+        for (String paso : r.getPasos()) {
+            if (paso.startsWith("Retrocede")) continue;
+            if (mostrados == 15) { System.out.println("  ..."); break; }
+            System.out.println("  " + paso);
+            mostrados++;
+        }
+        consola.cierre();
     }
 
     private static String cadena(List<Usuario> camino) {

@@ -8,6 +8,7 @@ import com.ajs.tpo.repository.EquipoRepository;
 import com.ajs.tpo.repository.IniciativaRepository;
 import com.ajs.tpo.repository.PublicacionRepository;
 import com.ajs.tpo.repository.UsuarioRepository;
+import com.ajs.tpo.service.CadenasAlternativasService;
 import com.ajs.tpo.service.ConexionService;
 import com.ajs.tpo.service.DijkstraService;
 import com.ajs.tpo.service.EquipoService;
@@ -39,6 +40,7 @@ public class App {
         DijkstraService dijkstraService = new DijkstraService(grafo, usuarioRepo);
         FloydService floydService = new FloydService(grafo, usuarioRepo);
         FormacionEquiposService formacionService = new FormacionEquiposService(usuarioRepo);
+        CadenasAlternativasService cadenasService = new CadenasAlternativasService(grafo, usuarioRepo);
 
         cargarDatosDePrueba(usuarioService, pubService, conexionService, iniciativaService);
 
@@ -47,7 +49,7 @@ public class App {
                 new UsuariosCLI(consola, usuarioService),
                 new PublicacionesCLI(consola, pubService),
                 new ConexionesCLI(consola, conexionService, grafo),
-                new DifusionCLI(consola, dijkstraService, floydService),
+                new DifusionCLI(consola, dijkstraService, floydService, cadenasService),
                 new IniciativasCLI(consola, iniciativaService, mochilaService),
                 new EquiposCLI(consola, formacionService, equipoService)
         );
