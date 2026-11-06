@@ -35,7 +35,7 @@ public class MergeSortPublicacionesTest {
             Publicacion[] arr = {
                     pub(3, 9, BASE, 0), pub(4, 8, BASE, 0), pub(1, 5, BASE, 0), pub(2, 5, BASE, 0)
             };
-            MergeSortPublicaciones.mergeSort(arr, REL);
+            MergeSortPublicaciones.mergeSort(arr,0,arr.length-1, REL);
             igual("3-4-1-2", ids(arr), "orden");
         });
 
@@ -48,13 +48,13 @@ public class MergeSortPublicacionesTest {
             igual(10, b.getRelevancia(), "relevancia B");
             igual(12, c.getRelevancia(), "relevancia C");
             Publicacion[] arr = { a, b, c };
-            MergeSortPublicaciones.mergeSort(arr, REL);
+            MergeSortPublicaciones.mergeSort(arr,0,arr.length-1, REL);
             igual("3-2-1", ids(arr), "orden"); // C(12), B(10 reciente), A(10)
         });
 
         caso("Empate de relevancia y fecha: menor id primero", () -> {
             Publicacion[] arr = { pub(5, 7, BASE, 0), pub(3, 7, BASE, 0), pub(4, 7, BASE, 0) };
-            MergeSortPublicaciones.mergeSort(arr, REL);
+            MergeSortPublicaciones.mergeSort(arr,0,arr.length-1, REL);
             igual("3-4-5", ids(arr), "orden");
         });
 
@@ -64,7 +64,7 @@ public class MergeSortPublicacionesTest {
             Publicacion p3 = pub(3, 0, BASE.plusDays(1), 0);
             Publicacion p4 = pub(4, 0, BASE.plusDays(2), 0); // misma fecha que p2
             Publicacion[] arr = { p3, p1, p4, p2 };
-            MergeSortPublicaciones.mergeSort(arr, FEC);
+            MergeSortPublicaciones.mergeSort(arr,0,arr.length-1, FEC);
             igual("2-4-3-1", ids(arr), "orden");
         });
 
@@ -72,7 +72,7 @@ public class MergeSortPublicacionesTest {
             Publicacion viejaPopular = pub(1, 1000, BASE, 0);
             Publicacion nuevaSinNada = pub(2, 0, BASE.plusDays(1), 0);
             Publicacion[] arr = { viejaPopular, nuevaSinNada };
-            MergeSortPublicaciones.mergeSort(arr, FEC);
+            MergeSortPublicaciones.mergeSort(arr,0,arr.length-1, FEC);
             igual("2-1", ids(arr), "orden");
         });
 
@@ -81,20 +81,20 @@ public class MergeSortPublicacionesTest {
                     pub(1, 1, BASE, 0), pub(2, 2, BASE, 0), pub(3, 3, BASE, 0),
                     pub(4, 4, BASE, 0), pub(5, 5, BASE, 0)
             };
-            MergeSortPublicaciones.mergeSort(arr, REL);
+            MergeSortPublicaciones.mergeSort(arr,0,arr.length-1, REL);
             igual("5-4-3-2-1", ids(arr), "orden");
         });
 
         caso("Arreglo vacio, de un elemento y nulo no fallan", () -> {
             Publicacion[] vacio = {};
-            MergeSortPublicaciones.mergeSort(vacio, REL);
+            MergeSortPublicaciones.mergeSort(vacio,0,vacio.length-1, REL);
             igual(0, vacio.length, "vacio");
 
             Publicacion[] uno = { pub(1, 3, BASE, 0) };
-            MergeSortPublicaciones.mergeSort(uno, FEC);
+            MergeSortPublicaciones.mergeSort(uno,0,uno.length-1, FEC);
             igual("1", ids(uno), "un elemento");
 
-            MergeSortPublicaciones.mergeSort(null, REL);
+            MergeSortPublicaciones.mergeSort(null,0,0, REL);
         });
 
         caso("La version con rango solo ordena [ini, fin]", () -> {
@@ -106,7 +106,7 @@ public class MergeSortPublicacionesTest {
         caso("100 publicaciones aleatorias (semilla fija): orden correcto, sin perder ni repetir ids", () -> {
             for (CriterioOrdenamientoPublicaciones criterio : new CriterioOrdenamientoPublicaciones[] { REL, FEC }) {
                 Publicacion[] arr = aleatorias(100, 42);
-                MergeSortPublicaciones.mergeSort(arr, criterio);
+                MergeSortPublicaciones.mergeSort(arr,0,arr.length-1, criterio);
 
                 Set<Integer> distintos = new HashSet<>();
                 for (Publicacion p : arr) distintos.add(p.getId());
