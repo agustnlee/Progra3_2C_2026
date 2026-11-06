@@ -1,125 +1,84 @@
 package com.ajs.tpo.algorithm;
 
 import com.ajs.tpo.model.Publicacion;
-import com.ajs.tpo.enums.*;
+import com.ajs.tpo.enums.CriterioOrdenamientoPublicaciones;
+
 
 public class MergeSortPublicaciones {
 
-    public static long comparaciones = 0;
-    public static long movimientos = 0;
 
-    public static void reiniciarContadores() {
-        comparaciones = 0;
-        movimientos = 0;
+    public static void mergeSort(Publicacion[] arr, int ini, int fin, CriterioOrdenamientoPublicaciones tipo) {
+        if (ini <fin) {
+        int medio = (ini + fin) / 2;
 
-    }
-// compara 2 publicaciones por relevancia descendente y si son iguales se desempata por id ascendente
-// negativo si p1 tiene que ir ANTES de p2, positivo si p1 DESPUES de p2, 0 si son iguales en relevancia
-    private static int CompararRelevancia(Publicacion p1, Publicacion p2) {
-        comparaciones++;
-        if (p1.getRelevancia()!=p2.getRelevancia()) {
-            return Double.compare(p2.getRelevancia(), p1.getRelevancia()); // para orden descendente
-        } else {
-            return CompararFecha(p1, p2); // para orden ascendente  
-        }
-    }
+        mergeSort(arr , ini, medio, tipo);
+        mergeSort(arr , medio + 1, fin, tipo);
+        mezclar(arr, ini, fin, tipo); }
 
-    private static int CompararId(Publicacion p1, Publicacion p2){
-        comparaciones++;
-        return Integer.compare(p1.getId(), p2.getId());
-    }
+    } 
 
-    private static int CompararFecha(Publicacion p1, Publicacion p2){
-        comparaciones++;
-        if (!p1.getFechaHora().equals(p2.getFechaHora())){
-           if (p1.getFechaHora().isAfter(p2.getFechaHora())){
-            return -1;
-           }
-           else return 1;
-        }
-        else return CompararId(p1, p2);
-    }
+     private static  void mezclar(Publicacion[] arr, int ini,  int fin, CriterioOrdenamientoPublicaciones tipo) {
+       Publicacion[] aux= new Publicacion[fin-ini+1];
+       int mid=(ini+fin)/2;
+       int i=ini;
+       int  j=mid+1;
+       for(int k=0;k<=fin-ini;k++){
+        
+        if (tipo== CriterioOrdenamientoPublicaciones.POR_RELEVANCIA){ // desempate por relevancia, dsp fecha, dsp id. como pide la consigna
 
 
-    public static void mergeSort(Publicacion[] arr, CriterioOrdenamientoPublicaciones tipo) {
-        if (arr.length < 2) {
-            return;
-        }
-        Publicacion[] auxiliar = new Publicacion[arr.length];
-        mergeSort(arr, auxiliar, 0, arr.length - 1, tipo);
-    }
+         if((j>fin)||(arr[i].getRelevancia()>arr[j].getRelevancia()&&i <mid +1)) {
+            aux[k] = arr[i];
+            i++;} 
 
-    private static void mergeSort(Publicacion[] arr, Publicacion[] auxiliar, int izq, int der, CriterioOrdenamientoPublicaciones tipo) {
-        if (izq >= der) { return; }
-
-        int medio = (izq + der) / 2;
-
-        mergeSort(arr, auxiliar, izq, medio, tipo);
-        mergeSort(arr, auxiliar, medio + 1, der, tipo);
-        mezclar(arr, auxiliar, izq, medio, der, tipo);
-    }
-
-     private static void mezclar(Publicacion[] arr, Publicacion[] auxiliar, int izq, int medio, int der, CriterioOrdenamientoPublicaciones tipo) {
-
-        // Copiar rango [izq, der] al arreglo auxiliar
-        for (int k = izq; k <= der; k++) {
-            auxiliar[k] = arr[k];
-            movimientos++;
-        }
-
-        int i = izq;        // puntero parte izquierda
-        int j = medio + 1;  // puntero parte derecha
-        int k = izq;        // puntero de escritura en arr
-
-        while (i <= medio && j <= der) {
-
-            if (tipo.equals(CriterioOrdenamientoPublicaciones.POR_RELEVANCIA)){ 
-                if (CompararRelevancia(auxiliar[i], auxiliar[j]) <= 0) {
-                arr[k] = auxiliar[i];
-                movimientos++;
-                i++;
-
-            } else {
-                arr[k] = auxiliar[j];
-                movimientos++;
-                j++;
-            }
-            k++;
-        }
-
-        else if(tipo.equals(CriterioOrdenamientoPublicaciones.POR_FECHA)){
-            if(CompararFecha(auxiliar[i], auxiliar[j]) <= 0){
-                 arr[k] = auxiliar[i];
-                movimientos++;
-                i++;
-            } else {
-                arr[k] = auxiliar[j];
-                movimientos++;
-                j++;
-            }
-            k++;
+            else if (i <= mid && arr[i].getRelevancia() == arr[j].getRelevancia()) {
+                boolean izqPrimero = arr[i].getFechaHora().isAfter(arr[j].getFechaHora())
+                    || (arr[i].getFechaHora().equals(arr[j].getFechaHora())
+                    && arr[i].getId() < arr[j].getId());
+                if (izqPrimero) {
+                    aux[k] = arr[i];
+                    i++;
+                } else {
+                    aux[k] = arr[j];
+                    j++;
+                }
             }
             
-        else {
-           break;
-        }
+            
+            else {
+                aux[k] = arr[j];
+                j++;
+            }
+       }else if(tipo==CriterioOrdenamientoPublicaciones.POR_FECHA){
 
-        }
+
+         if((j>fin)||(arr[i].getFechaHora().isAfter(arr[j].getFechaHora())&&i <mid +1)) {
+            aux[k] = arr[i];
+            i++;} 
+
+            else if(i <= mid && arr[i].getFechaHora().equals(arr[j].getFechaHora())){
+                if (arr[i].getId()<arr[j].getId()) {
+                     aux[k] = arr[i]; 
+                     i++;
+                     } 
+                else{ aux[k] = arr[j];
+                j++;
+
+                }}
+            
+            
+            else {
+                aux[k] = arr[j];
+                j++;
+            }
+       }
+       else {
+        break;
+       }
     
-        // copiar sobrante izq
-        while (i <= medio) {
-            arr[k] = auxiliar[i];
-            movimientos++;
-            i++;
-            k++;
-        }
-
-        // copair sobrante der
-        while (j <= der) {
-            arr[k] = auxiliar[j];
-            movimientos++;
-            j++;
-            k++;
+    }
+        for(int k=0;k <=fin-ini;k++){
+            arr[ini + k] = aux[k];
         }
     }
 }

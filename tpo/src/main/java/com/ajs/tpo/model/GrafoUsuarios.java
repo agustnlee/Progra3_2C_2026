@@ -22,7 +22,7 @@ public class GrafoUsuarios {
         return version;
     }
 
-    // --- Vertices
+    // Vertices
 
     public void agregarUsuario(Usuario u) {
         if (u == null) throw new IllegalArgumentException("Usuario nulo");
@@ -56,7 +56,7 @@ public class GrafoUsuarios {
         return adyacencia.size();
     }
 
-    // --- Aristas
+    // Aristas
 
     // crea conexion y agrega usuarios si no estaban los usuarios en el grafo
 
@@ -97,7 +97,16 @@ public class GrafoUsuarios {
         return true;
     }
 
-    // --- consutlas
+    // Cambia el tiempo de una conexion existente, Incrementa la version para invalidar la cache de Floyd
+    public boolean setTiempo(Usuario origen, Usuario destino, int tiempo) {
+        Optional<Conexion> c = buscarConexion(origen, destino);
+        if (c.isEmpty()) return false;
+        c.get().setTiempo(tiempo); // valida que sea positivo
+        version++;
+    return true;
+    }
+
+    // consutlas
 
     //  todas las conexiones que salen del usuario (incluye deshabilitadas)
     public List<Conexion> getConexiones(Usuario u) {
@@ -119,6 +128,25 @@ public class GrafoUsuarios {
         for (List<Conexion> lista : adyacencia.values()) total += lista.size();
         return total;
     }
+
+    // Representacion detallada para UI: Una fila por usuario {1 Ana} -> {2 Beto (5 min), 3 Carla (2 min, DESHABILITADA)}
+    public List<String> representacion() {
+        List<String> filas = new ArrayList<>();
+        for (Usuario u : getUsuarios()) {
+            StringBuilder sb = new StringBuilder("{" + u.getId() + " " + u.getNombre() + "} -> {");
+            boolean primero = true;
+            for (Conexion c : adyacencia.get(u)) {
+                if (!primero) sb.append(", ");
+                sb.append(c.getDestino().getId()).append(" ").append(c.getDestino().getNombre())
+                .append(" (").append(c.getTiempo()).append(" min")
+                .append(c.isHabilitada() ? "" : ", DESHABILITADA").append(")");
+                primero = false;
+            }
+        filas.add(sb.append("}").toString());
+    }
+    return filas;
+}
+
 
     @Override
     public String toString() {
