@@ -16,6 +16,5 @@ El repositorio se utiliza tanto para el desarrollo del **Trabajo Práctico Oblig
 Desde la carpeta `tpo/` 
 
 - Compilar: `./mvnw clean compile`
-- Tests: `./mvnw clean test`
 - Ejecutar Main.java: `./mvnw compile exec:java`
 - Ejecutar TestRunner.java `.\mvnw.cmd test-compile exec:java "-Dexec.mainClass=com.ajs.tpo.TestRunner" "-Dexec.classpathScope=test"`
