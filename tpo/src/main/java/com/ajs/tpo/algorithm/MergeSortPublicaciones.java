@@ -7,11 +7,6 @@ import com.ajs.tpo.enums.CriterioOrdenamientoPublicaciones;
 public class MergeSortPublicaciones {
 
 
-    public static void mergeSort(Publicacion[] arr, CriterioOrdenamientoPublicaciones tipo) { // Para PublicacionService
-        if (arr == null || arr.length < 2) return;
-        mergeSort(arr, 0, arr.length - 1, tipo);
-    }
-
     public static void mergeSort(Publicacion[] arr, int ini, int fin, CriterioOrdenamientoPublicaciones tipo) {
         if (ini <fin) {
         int medio = (ini + fin) / 2;
